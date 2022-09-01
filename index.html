@@ -17,11 +17,24 @@
             <h1 class="header__title">Have fun &#128396;</h1>
         </header>
         <aside class="aside">
-            <form action="">
-                <button>choose one</button>
-                <button>aleatorio</button>
-                <button>clear</button>
-                <input type="range" min="1" max="64" value="16" class="slider">
+            <form action="#" onclick="return false;">
+                <fieldset class="color-selection">
+                    <legend class="legend">Color selection</legend>
+                    <label class="bg-label" for="background">Background: </label>
+                    <input class="bg-input" type="color" id="background">
+                    <label class="mouse-label" for="pen">Mouse color: </label>
+                    <input class="mouse-input" type="color" id="pen">
+                    <button class="random" >random</button>
+                </fieldset>
+                
+                <fieldset class="options">
+                    <legend class="legend">Range and options</legend>
+                    <div>
+                        <input class="slider" type="range" min="1" max="64" value="16" class="slider">
+                    </div>
+
+                    <button class="clc">clear</button>
+                </fieldset>
             </form>
         </aside>
         <main class="main">
@@ -41,7 +54,9 @@
             </div>
         </main>
         <footer class="footer">
-            h
+            <p class="footer__p">
+                Page made by ArturoSM10, Thanks to <a class="p__a" href="https://www.theodinproject.com/">The Odin Project</a>
+            </p>
         </footer>
     </div>
 </body>
