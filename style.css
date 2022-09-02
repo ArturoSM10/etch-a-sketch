@@ -56,14 +56,14 @@ body {
 }
 
 .color-selection {
-    grid-template-areas: 
+    grid-template-areas:
     "label-bg label-bg color-bg"
     "label label color-mouse"
     "btn btn btn";
 }
 
 .options {
-    grid-template-areas: 
+    grid-template-areas:
     "slider"
     "btn-clc";
 }
@@ -142,7 +142,7 @@ body {
     box-shadow: 0.1rem 0.1rem #000,
                 0.1rem 0.3rem #000, 0.3rem -0.1rem #000,
                 1rem 1rem 0.5rem #000,
-                -1rem 0 5rem #000; 
+                -1rem 0 5rem #000;
 }
 
 .canvas-title {
@@ -162,8 +162,17 @@ body {
     aspect-ratio: 1/1;
     background-color: #fff;
     box-shadow: .1rem .1rem 0.5rem inset #000;
+    border: 1px solid #000;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 1fr);
+    grid-template-rows: repeat(auto-fill, 1fr);
+    gap: 0;
 }
-
+.div-inside {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(31, 24, 225,0.5);
+}
 .circle-container {
     grid-area: btn;
     height: 70%;
@@ -206,8 +215,8 @@ body {
         transform: rotateZ(360deg);
     }
 
-}
- */
+} */
+
 .footer {
     font-family: 'Seymour One', sans-serif;
     grid-area: footer;
