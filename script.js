@@ -1,16 +1,18 @@
 createDivs();
 formEvents();
+// sliderRange();
 /*colocar grid y btn */
-let color;
-let colorD;
-let slid;
-let angles = 0;
+let backgroundColor;
+let divColor;
+let sliderValue;
+let angle = 0;
 function formEvents () {
     const formAction = document.querySelector(`.aside__form`);
 
     const colorPicker = document.querySelector(`.bg-input`);
     const colorDiv = document.querySelector(`.mouse-input`);
     const slider = document.querySelector(`.slider`);
+    const bg = document.querySelector(`.div-container`);
 
     formAction.addEventListener(`click`, (e)=>{
         if (e.target && e.target.tagName === `BUTTON`) {
@@ -22,20 +24,13 @@ function formEvents () {
     formAction.addEventListener(`input`, (e)=> {
         if (e.target && e.target.tagName === `INPUT`) {
             /*agregar eventos a inputs y colocar los valores por defecto ademas de enlazar a los divs por el background */
-            color = colorPicker.value;
+            backgroundColor = colorPicker.value;
             colorD = colorDiv.value;
-            slid = slider.value;
-            console.log(`color-bg es: ${color}, colordiv es: ${colorD} y slider es: ${slid}`);
-            const bg = document.querySelector(`.div-container`);
             bg.style.backgroundColor = color;
         }
     });
     return;
 }
-
-
-
-
 
 function createDivs() {
     /*dejarlo en funcion de los colores y los div que se crearan con el slider max 100 */
@@ -56,7 +51,7 @@ function createDivs() {
             const rightBtn = document.querySelector(`.right-circle`);
             leftBtn.style.transform = `rotateZ(${((e.clientX-valorDeX)*360)/291}deg)`;
             console.log(`${-((e.clientX-valorDeX)*360)/291}`)
-            rightBtn.style.transform = `rotateZ(${((e.clientY-valorDeY)*360)/291}deg)`;
+            rightBtn.style.transform = `rotateZ(${-((e.clientY-valorDeY)*360)/291}deg)`;
             e.target.style.backgroundColor = `black`;
             /*colocar operacion a angles*/
         }
@@ -64,3 +59,12 @@ function createDivs() {
     });
 }
 
+// function sliderRange() {
+//     const odinSlider = document.querySelector(`.slider`);
+//     console.log(odinSlider)
+//     const selector = document.querySelector(`.select-btn`);
+//     console.log(selector)
+//     selector.addEventListener(`input`, (e) =>{
+
+//     });
+// }
