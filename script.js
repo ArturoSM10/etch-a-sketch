@@ -1,70 +1,94 @@
+let colorHex = [0,0,0];
+let rangeValue = 4;
+let state = ``;
+let colors =[`#fff`,`#000`];
+
+colors=formEvents(); //checar si debe devolver valor
 createDivs();
-formEvents();
-// sliderRange();
-/*colocar grid y btn */
-let backgroundColor;
-let divColor;
-let sliderValue;
-let angle = 0;
+painting();
+
 function formEvents () {
     const formAction = document.querySelector(`.aside__form`);
-
-    const colorPicker = document.querySelector(`.bg-input`);
-    const colorDiv = document.querySelector(`.mouse-input`);
-    const slider = document.querySelector(`.slider`);
-    const bg = document.querySelector(`.div-container`);
+    const background = document.querySelector(`.div-container`);
+    const arrayColor = [`#fff`,`#000`];
 
     formAction.addEventListener(`click`, (e)=>{
         if (e.target && e.target.tagName === `BUTTON`) {
             e.preventDefault();
-            /*agregar eventos a botones agregar btn aleatorio*/
+            switch (e.target.className) {
+                case `random`:
+                    state = `random`
+                break;
+                case `clc`:
+                    background.innerHTML = "";
+                    createDivs();
+                break;
+            }
         }
     });
-
     formAction.addEventListener(`input`, (e)=> {
         if (e.target && e.target.tagName === `INPUT`) {
-            /*agregar eventos a inputs y colocar los valores por defecto ademas de enlazar a los divs por el background */
-            backgroundColor = colorPicker.value;
-            colorD = colorDiv.value;
-            bg.style.backgroundColor = color;
+            switch (e.target.className) {
+                case `bg-input`:
+                    arrayColor[0]= e.target.value;
+                    background.style.backgroundColor = `${e.target.value}`;
+                break;
+                case `slider`:
+                    const textValue = document.querySelector(`.range__value`);
+                    rangeValue = e.target.value;
+                    textValue.textContent=rangeValue;
+                break;
+            }
         }
     });
-    return;
+    formAction.addEventListener(`change`, (e)=> {
+        if (e.target && e.target.tagName ===`INPUT`) {
+            switch (e.target.className) {
+                case `slider`:
+                    background.innerHTML = "";
+                    createDivs();
+                break;
+                case `mouse-input`:
+                    state = `mouse color`
+                    arrayColor[1]= e.target.value;
+                break;
+            }
+        }
+    });
+    return arrayColor;
 }
 
 function createDivs() {
-    /*dejarlo en funcion de los colores y los div que se crearan con el slider max 100 */
-    const pixels = document.querySelector(`.div-container`);
-    pixels.style.gridTemplateRows = `repeat(4, 1fr)`
-    pixels.style.gridTemplateColumns = `repeat(4, 1fr)`
-    for (let j = 0; j<= (4*4)-1; j++) {
+    const background = document.querySelector(`.div-container`);
+    background.style.gridTemplateRows = `repeat(${rangeValue}, 1fr)`
+    background.style.gridTemplateColumns = `repeat(${rangeValue}, 1fr)`
+    for (let i = 0; i < Math.pow(rangeValue,2); i++) {
         const divs = document.createElement(`div`);
         divs.className = `div-inside`;
-        pixels.appendChild(divs);
+        background.appendChild(divs);
     }
-    const colores = document.querySelector(".div-container");
-    let valorDeX= colores.getBoundingClientRect().left;
-    let valorDeY= colores.getBoundingClientRect().top;
-    colores.addEventListener(`mousemove`,(e) => {
-        if (e.target && e.target.tagName === `DIV`) {
-            const leftBtn = document.querySelector(`.left-circle`);
-            const rightBtn = document.querySelector(`.right-circle`);
-            leftBtn.style.transform = `rotateZ(${((e.clientX-valorDeX)*360)/291}deg)`;
-            console.log(`${-((e.clientX-valorDeX)*360)/291}`)
-            rightBtn.style.transform = `rotateZ(${-((e.clientY-valorDeY)*360)/291}deg)`;
-            e.target.style.backgroundColor = `black`;
-            /*colocar operacion a angles*/
-        }
-        return angles;
-    });
 }
 
-// function sliderRange() {
-//     const odinSlider = document.querySelector(`.slider`);
-//     console.log(odinSlider)
-//     const selector = document.querySelector(`.select-btn`);
-//     console.log(selector)
-//     selector.addEventListener(`input`, (e) =>{
+function painting() {
+    const background = document.querySelector(".div-container");
+    const leftBtn = document.querySelector(`.left-circle`);
+    const rightBtn = document.querySelector(`.right-circle`);
+    const xValue = background.getBoundingClientRect().left;
+    const yValue = background.getBoundingClientRect().top;
 
-//     });
-// }
+    background.addEventListener(`mouseover`,(e) => {
+        if (e.target && e.target.className === `div-inside`) {
+            leftBtn.style.transform = `rotateZ(${((e.clientX - xValue)*360)/background.getBoundingClientRect().width}deg)`;
+            rightBtn.style.transform = `rotateZ(${((e.clientY - yValue)*360)/background.getBoundingClientRect().width}deg)`;
+            if (state === `random`) {
+                colorHex[0] = Math.floor(Math.random()*255);
+                colorHex[1] = Math.floor(Math.random()*255);
+                colorHex[2] = Math.floor(Math.random()*255);
+                e.target.style.backgroundColor = `rgb(${colorHex[0]},${colorHex[1]},${colorHex[2]})`;
+            }
+            else {
+                e.target.style.backgroundColor = `${colors[1]}`;
+            }
+        }
+    });
+}
