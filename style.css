@@ -194,6 +194,10 @@ body {
     grid-template-rows: repeat(auto-fill, 1fr);
 }
 
+.div-inside {
+    background-color: #ffffff;
+}
+
 .circle-container {
     grid-area: btn;
     height: 70%;
