@@ -64,8 +64,8 @@ function formEvents () {
 
 function createDivs() {
     const background = document.querySelector(`.div-container`);
-    background.style.gridTemplateRows = `repeat(${rangeValue}, 1fr)`
-    background.style.gridTemplateColumns = `repeat(${rangeValue}, 1fr)`
+    background.style.gridTemplateRows = `repeat(${rangeValue}, 1fr)`;
+    background.style.gridTemplateColumns = `repeat(${rangeValue}, 1fr)`;
     for (let i = 0; i < Math.pow(rangeValue,2); i++) {
         const divs = document.createElement(`div`);
         divs.className = `div-inside`;
