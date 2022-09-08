@@ -7,7 +7,6 @@ colors=formEvents();
 createDivs();
 painting();
 
-colors[1].to
 function formEvents () {
     const formAction = document.querySelector(`.aside__form`);
     const background = document.querySelector(`.div-container`);
@@ -96,7 +95,7 @@ function painting() {
                 let rgbColor = [];
                 let iteration = parseInt(e.target.id,10);
                 if (e.target.style.backgroundColor === ``) {
-                    rgbColor =hexToRgb(`#FFFFFF`);
+                    rgbColor =hexToRgb(colors[0]);
                     e.target.style.backgroundColor = `rgb(${rgbColor[0]},${rgbColor[1]},${rgbColor[2]})`;
                 }
                 else {
