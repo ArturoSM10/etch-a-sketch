@@ -6,8 +6,6 @@ let colors =[`#fff`,`#000`];
 colors=formEvents();
 createDivs();
 painting();
-let a = hexToRgb(`#b141fb`);
-console.log(a)
 
 colors[1].to
 function formEvents () {
@@ -71,6 +69,7 @@ function createDivs() {
     for (let i = 0; i < Math.pow(rangeValue,2); i++) {
         const divs = document.createElement(`div`);
         divs.className = `div-inside`;
+        divs.id = `0`;
         background.appendChild(divs);
     }
 }
@@ -87,42 +86,41 @@ function painting() {
             leftBtn.style.transform = `rotateZ(${((e.clientX - xValue)*360)/background.getBoundingClientRect().width}deg)`;
             rightBtn.style.transform = `rotateZ(${((e.clientY - yValue)*360)/background.getBoundingClientRect().width}deg)`;
             if (state === `random`) {
+                e.target.id = 0;
                 colorHex[0] = Math.floor(Math.random()*255);
                 colorHex[1] = Math.floor(Math.random()*255);
                 colorHex[2] = Math.floor(Math.random()*255);
                 e.target.style.backgroundColor = `rgb(${colorHex[0]},${colorHex[1]},${colorHex[2]})`;
             }
             else if (state === `dark`) {
-                let rgbColor = []
-                if (e.target.style.backgroundColor.includes === `#`) {
-                    switch (e.target.style.backgroundColor) {
-                        case ``:
-                            rgbColor =hexToRgb(`#ffffff`);
-                        break;
-                        default:
-                            rgbColor = hexToRgb(`${e.target.style.backgroundColor}`);
-                        break;
-                    }
-                }
-                else if (e.target.style.backgroundColor.includes === `rgb`){
-                    console.log(`ejecuto rgb`)
-                    rgbColor = e.target.style.backgroundColor;
-                    rgbColor=rgbColor.split(`rgb`, 2);
-                    rgbColor =rgbColor[1].split (`,`, 3);
-                    console.log(rgbColor)
-                    rgbColor =[rgbColor[0] -= 17, rgbColor[1] -= 17, rgbColor[3] -= 17]
-                    if (rgbColor[0] < 0 || rgbColor[1] < 0 || rgbColor[2] < 0) {
-                        rgbColor = [0,0,0];
-                    }
-                    e.target.style.backgroundColor= `rgb(${rgbColor[0]},${rgbColor[1]},${rgbColor[2]})`;
+                let rgbColor = [];
+                let iteration = parseInt(e.target.id,10);
+                if (e.target.style.backgroundColor === ``) {
+                    rgbColor =hexToRgb(`#FFFFFF`);
+                    e.target.style.backgroundColor = `rgb(${rgbColor[0]},${rgbColor[1]},${rgbColor[2]})`;
                 }
                 else {
-                    console.log(e.target.style.backgroundColor)
+                    rgbColor = e.target.style.backgroundColor;
+                    rgbColor=rgbColor.slice(4, -1);
+                    rgbColor = rgbColor.split(`,`,3);
+                    switch (iteration) {
+                        case 10:
+                            rgbColor = [0,0,0];
+                        break;
+                        default:
+                            rgbColor[0] = parseInt(rgbColor[0],10) - parseInt(rgbColor[0],10)/(10-iteration);
+                            rgbColor[1] = parseInt(rgbColor[1],10) - parseInt(rgbColor[1],10)/(10-iteration);
+                            rgbColor[2] = parseInt(rgbColor[2],10) - parseInt(rgbColor[2],10)/(10-iteration);
+                            e.target.id = (iteration +=1);
+                        break;
+
+                    }
                 }
                 e.target.style.backgroundColor= `rgb(${rgbColor[0]},${rgbColor[1]},${rgbColor[2]})`;
             }
 
             else {
+                e.target.id = 0;
                 e.target.style.backgroundColor = `${colors[1]}`;
             }
         }
@@ -131,7 +129,6 @@ function painting() {
 
 function hexToRgb(hexColor) {
     hexColor = hexColor.split(`#`,2);
-    console.log(hexColor[1])
     let rgbString = [];
     for (let i = 0; i < 6; i += 2) {
         rgbString.push(parseInt(`${hexColor[1][i]}${hexColor[1][i+1]}`,16));
